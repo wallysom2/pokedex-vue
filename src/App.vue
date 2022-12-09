@@ -4,11 +4,14 @@
     <v-card>
       <v-row>
         <v-col cols="2" 
-        v-for="pokemon in pokemons.slice(0,10)" 
+        v-for="pokemon in pokemons" 
         :key="pokemon.name">
         <v-card>
           <v-container>
-            <h2 class="text-center"> {{pokemon.name}} </h2>
+            <v-row class="mx-0 d-flex justify-center">
+              <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${get_id (pokemon)}.png`" :alt="pokemon.name" width="70%">
+            </v-row>
+            <h3 class="text-center capitalize"> {{get_name (pokemon)}}</h3>
           </v-container>
         </v-card>
 
@@ -35,6 +38,17 @@ data (){
   return {
     pokemons: []
   }
+},
+methods: {
+  get_id (pokemon) {
+    let url = pokemon.url;
+    let id = url.split('/')[url.split('/').length - 2];
+    return id;
+  },
+  get_name (pokemon) {
+    return pokemon.name.charAt(0).toUpperCase(0) + pokemon.name.slice(1)
+  }
+
 },
 
   mounted (){
